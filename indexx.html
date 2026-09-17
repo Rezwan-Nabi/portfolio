@@ -1,0 +1,2260 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <meta
+      name="description"
+      content="Md Rezwan Nabi — Front-end developer building clean, interactive web experiences with React and Next.js."
+    />
+    <title>Md Rezwan Nabi — Front-end Developer</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "system-ui", "-apple-system", "sans-serif"],
+              mono: ["JetBrains Mono", "ui-monospace", "monospace"],
+            },
+            colors: {
+              bg: "rgb(var(--c-bg) / <alpha-value>)",
+              surface: "rgb(var(--c-surface) / <alpha-value>)",
+              card: "rgb(var(--c-card) / <alpha-value>)",
+              ink: "rgb(var(--c-ink) / <alpha-value>)",
+              muted: "rgb(var(--c-muted) / <alpha-value>)",
+              dim: "rgb(var(--c-dim) / <alpha-value>)",
+              accent: "rgb(var(--c-accent) / <alpha-value>)",
+              accent2: "rgb(var(--c-accent2) / <alpha-value>)",
+              accent3: "rgb(var(--c-accent3) / <alpha-value>)",
+            },
+            letterSpacing: { tighter: "-0.03em", tight: "-0.02em" },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --c-bg: 10 10 10;
+        --c-surface: 17 17 17;
+        --c-card: 22 22 22;
+        --c-ink: 245 245 245;
+        --c-muted: 161 161 170;
+        --c-dim: 113 113 122;
+        --c-accent: 242 163 59;
+        --c-accent2: 79 193 176;
+        --c-accent3: 167 139 250;
+        --glass-bg: rgba(17, 17, 17, 0.72);
+        --glass-border: rgba(255, 255, 255, 0.08);
+        --shadow-card:
+          0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.25);
+        --shadow-lift: 0 16px 40px rgba(0, 0, 0, 0.5);
+        --grid-line: rgba(255, 255, 255, 0.045);
+      }
+      html.light {
+        --c-bg: 250 250 250;
+        --c-surface: 255 255 255;
+        --c-card: 255 255 255;
+        --c-ink: 23 23 23;
+        --c-muted: 82 82 91;
+        --c-dim: 115 115 120;
+        --c-accent: 184 114 30;
+        --c-accent2: 31 126 117;
+        --c-accent3: 124 58 237;
+        --glass-bg: rgba(255, 255, 255, 0.82);
+        --glass-border: rgba(0, 0, 0, 0.07);
+        --shadow-card:
+          0 1px 2px rgba(0, 0, 0, 0.05), 0 8px 24px rgba(0, 0, 0, 0.07);
+        --shadow-lift: 0 16px 40px rgba(0, 0, 0, 0.12);
+        --grid-line: rgba(0, 0, 0, 0.05);
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 6.5rem;
+      }
+      body {
+        font-family: "Inter", system-ui, sans-serif;
+        background: rgb(var(--c-bg));
+        color: rgb(var(--c-ink));
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+      }
+      ::selection {
+        background: rgb(var(--c-accent) / 0.25);
+        color: rgb(var(--c-ink));
+      }
+      ::-webkit-scrollbar {
+        width: 10px;
+      }
+      ::-webkit-scrollbar-track {
+        background: rgb(var(--c-bg));
+      }
+      ::-webkit-scrollbar-thumb {
+        background: rgb(var(--c-ink) / 0.15);
+        border-radius: 8px;
+        border: 2px solid rgb(var(--c-bg));
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgb(var(--c-ink) / 0.3);
+      }
+      :focus-visible {
+        outline: 2px solid rgb(var(--c-accent) / 0.7);
+        outline-offset: 2px;
+        border-radius: 6px;
+      }
+
+      .skip-link {
+        position: fixed;
+        top: -100px;
+        left: 1rem;
+        z-index: 999;
+        padding: 0.6rem 1rem;
+        border-radius: 0.5rem;
+        background: rgb(var(--c-accent));
+        color: rgb(var(--c-bg));
+        font-weight: 600;
+        transition: top 0.2s;
+      }
+      .skip-link:focus {
+        top: 1rem;
+      }
+
+      .glass {
+        background: var(--glass-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+      }
+      .card {
+        background: rgb(var(--c-card));
+        border: 1px solid rgb(var(--c-ink) / 0.08);
+        box-shadow: var(--shadow-card);
+      }
+      .lift {
+        transition:
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.35s,
+          border-color 0.35s;
+      }
+      .lift:hover {
+        transform: translateY(-5px);
+        box-shadow: var(--shadow-lift);
+        border-color: rgb(var(--c-ink) / 0.18);
+      }
+      .bg-grid {
+        background-image:
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+        background-size: 44px 44px;
+      }
+      .noise {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.018;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      }
+      .spotlight {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 560px;
+        height: 560px;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 0;
+        transform: translate(-50%, -50%);
+        background: radial-gradient(
+          circle,
+          rgb(var(--c-accent) / 0.09) 0%,
+          transparent 60%
+        );
+      }
+
+      .text-gradient {
+        background: linear-gradient(
+          120deg,
+          rgb(var(--c-accent)) 0%,
+          rgb(var(--c-accent2)) 55%,
+          rgb(var(--c-accent3)) 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border-radius: 0.625rem;
+        padding: 0.75rem 1.4rem;
+        transition: all 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+        cursor: pointer;
+        white-space: nowrap;
+      }
+      .btn:active {
+        transform: scale(0.97);
+      }
+      .btn:disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .btn-primary {
+        background: rgb(var(--c-accent));
+        color: rgb(var(--c-bg));
+      }
+      .btn-primary:hover:not(:disabled) {
+        filter: brightness(1.12);
+        box-shadow: 0 0 28px rgb(var(--c-accent) / 0.35);
+      }
+      .btn-ghost {
+        background: rgb(var(--c-ink) / 0.05);
+        border: 1px solid rgb(var(--c-ink) / 0.12);
+        color: rgb(var(--c-ink));
+      }
+      .btn-ghost:hover {
+        background: rgb(var(--c-ink) / 0.09);
+        border-color: rgb(var(--c-ink) / 0.25);
+      }
+
+      .input {
+        width: 100%;
+        background: rgb(var(--c-ink) / 0.04);
+        border: 1px solid rgb(var(--c-ink) / 0.12);
+        border-radius: 0.625rem;
+        padding: 0.85rem 1rem;
+        font-size: 0.875rem;
+        color: rgb(var(--c-ink));
+        transition: all 0.2s;
+      }
+      .input:hover {
+        border-color: rgb(var(--c-ink) / 0.25);
+      }
+      .input:focus {
+        outline: none;
+        border-color: rgb(var(--c-accent) / 0.7);
+        box-shadow: 0 0 0 3px rgb(var(--c-accent) / 0.15);
+        background: rgb(var(--c-ink) / 0.06);
+      }
+      .input::placeholder {
+        color: transparent;
+      }
+      .form-group {
+        position: relative;
+      }
+      .form-label {
+        position: absolute;
+        left: 0.85rem;
+        top: 0.85rem;
+        font-size: 0.875rem;
+        color: rgb(var(--c-dim));
+        pointer-events: none;
+        transition: all 0.18s ease;
+        background: transparent;
+        padding: 0 0.25rem;
+        border-radius: 4px;
+      }
+      .input:focus ~ .form-label,
+      .input:not(:placeholder-shown) ~ .form-label {
+        top: -0.55rem;
+        left: 0.6rem;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: rgb(var(--c-accent));
+        background: rgb(var(--c-card));
+      }
+      .field-error {
+        display: none;
+        font-size: 0.72rem;
+        color: #ef4444;
+        margin-top: 0.35rem;
+      }
+      .form-group.invalid .field-error {
+        display: block;
+      }
+      .form-group.invalid .input {
+        border-color: rgb(239 68 68/0.6);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.35rem 0.8rem;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+        background: rgb(var(--c-ink) / 0.05);
+        border: 1px solid rgb(var(--c-ink) / 0.1);
+        color: rgb(var(--c-muted));
+        transition: all 0.2s;
+      }
+      .pill:hover {
+        border-color: rgb(var(--c-accent) / 0.4);
+        color: rgb(var(--c-accent));
+        background: rgb(var(--c-accent) / 0.08);
+        transform: translateY(-1px);
+      }
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        padding: 0.3rem 0.75rem;
+        border-radius: 999px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 0.02em;
+      }
+      .badge-accent {
+        background: rgb(var(--c-accent) / 0.12);
+        border: 1px solid rgb(var(--c-accent) / 0.25);
+        color: rgb(var(--c-accent));
+      }
+      .badge-neutral {
+        background: rgb(var(--c-ink) / 0.06);
+        border: 1px solid rgb(var(--c-ink) / 0.12);
+        color: rgb(var(--c-muted));
+      }
+
+      .pulse-dot {
+        position: relative;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgb(var(--c-accent));
+        flex-shrink: 0;
+      }
+      .pulse-dot::after {
+        content: "";
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: rgb(var(--c-accent) / 0.35);
+        animation: pulse 2s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(0.6);
+          opacity: 0.8;
+        }
+        50% {
+          transform: scale(1.15);
+          opacity: 0.25;
+        }
+      }
+
+      .nav-link {
+        position: relative;
+        padding: 0.4rem 0.75rem;
+        font-size: 0.85rem;
+        font-weight: 500;
+        color: rgb(var(--c-muted));
+        border-radius: 0.5rem;
+        transition: color 0.2s;
+      }
+      .nav-link:hover {
+        color: rgb(var(--c-ink));
+      }
+      .nav-link.active {
+        color: rgb(var(--c-ink));
+      }
+      .nav-link.active::after {
+        content: "";
+        position: absolute;
+        left: 0.75rem;
+        right: 0.75rem;
+        bottom: -2px;
+        height: 2px;
+        border-radius: 2px;
+        background: linear-gradient(
+          90deg,
+          rgb(var(--c-accent)),
+          rgb(var(--c-accent2))
+        );
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(26px);
+        transition:
+          opacity 0.8s ease,
+          transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: none;
+      }
+
+      .timeline {
+        position: relative;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 8px;
+        bottom: 8px;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          rgb(var(--c-accent) / 0.5),
+          rgb(var(--c-ink) / 0.1)
+        );
+      }
+      .t-item {
+        position: relative;
+        padding-left: 3.25rem;
+        padding-bottom: 2.5rem;
+      }
+      .t-item::before {
+        content: "";
+        position: absolute;
+        left: 9px;
+        top: 6px;
+        width: 13px;
+        height: 13px;
+        border-radius: 50%;
+        background: rgb(var(--c-bg));
+        border: 2.5px solid rgb(var(--c-accent));
+        box-shadow: 0 0 0 4px rgb(var(--c-accent) / 0.15);
+      }
+
+      .bar {
+        height: 6px;
+        border-radius: 99px;
+        background: rgb(var(--c-ink) / 0.08);
+        overflow: hidden;
+      }
+      .bar-fill {
+        height: 100%;
+        width: 0;
+        border-radius: 99px;
+        background: linear-gradient(
+          90deg,
+          rgb(var(--c-accent)),
+          rgb(var(--c-accent2))
+        );
+        transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .p-card {
+        transition:
+          opacity 0.3s,
+          transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgb(0 0 0/0.65);
+        backdrop-filter: blur(6px);
+        z-index: 90;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s;
+      }
+      .modal-backdrop.open {
+        opacity: 1;
+        pointer-events: auto;
+      }
+      .modal {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.96);
+        width: min(680px, calc(100vw - 2rem));
+        max-height: min(85vh, 720px);
+        overflow-y: auto;
+        border-radius: 1.25rem;
+        z-index: 91;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .modal.open {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+        pointer-events: auto;
+      }
+
+      .cmd {
+        position: fixed;
+        top: 18%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-8px) scale(0.98);
+        width: min(600px, calc(100vw - 2rem));
+        border-radius: 1rem;
+        z-index: 95;
+        opacity: 0;
+        pointer-events: none;
+        transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+        box-shadow: 0 24px 80px rgba(0, 0, 0, 0.5);
+        overflow: hidden;
+      }
+      .cmd.open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateX(-50%) translateY(0) scale(1);
+      }
+      .cmd-item {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        color: rgb(var(--c-muted));
+        cursor: pointer;
+        text-align: left;
+        transition: background 0.12s;
+      }
+      .cmd-item:hover,
+      .cmd-item.sel {
+        background: rgb(var(--c-ink) / 0.07);
+        color: rgb(var(--c-ink));
+      }
+
+      .toast-wrap {
+        position: fixed;
+        top: 5.5rem;
+        right: 1.25rem;
+        z-index: 120;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        pointer-events: none;
+      }
+      .toast {
+        pointer-events: auto;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        background: rgb(var(--c-card));
+        border: 1px solid rgb(var(--c-ink) / 0.12);
+        border-radius: 0.75rem;
+        padding: 0.8rem 1.1rem;
+        min-width: 270px;
+        max-width: 340px;
+        box-shadow: var(--shadow-lift);
+        animation: toastIn 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .toast.out {
+        animation: toastOut 0.3s forwards;
+      }
+      @keyframes toastIn {
+        from {
+          opacity: 0;
+          transform: translateX(24px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @keyframes toastOut {
+        to {
+          opacity: 0;
+          transform: translateX(24px);
+        }
+      }
+
+      .dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgb(var(--c-ink) / 0.18);
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+        padding: 0;
+      }
+      .dot:hover {
+        background: rgb(var(--c-ink) / 0.4);
+      }
+      .dot.active {
+        background: rgb(var(--c-accent));
+        box-shadow: 0 0 10px rgb(var(--c-accent) / 0.6);
+        transform: scale(1.3);
+      }
+
+      .progress {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 2px;
+        width: 0;
+        z-index: 80;
+        background: linear-gradient(
+          90deg,
+          rgb(var(--c-accent)),
+          rgb(var(--c-accent2)),
+          rgb(var(--c-accent3))
+        );
+      }
+
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: rgb(var(--c-bg));
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 1rem;
+        transition:
+          opacity 0.5s,
+          visibility 0.5s;
+      }
+      .loader.done {
+        opacity: 0;
+        visibility: hidden;
+      }
+      .loader-mark {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: rgb(var(--c-accent) / 0.12);
+        border: 1px solid rgb(var(--c-accent) / 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "JetBrains Mono";
+        font-weight: 600;
+        color: rgb(var(--c-accent));
+        animation: markPulse 1.2s ease-in-out infinite;
+      }
+      @keyframes markPulse {
+        0%,
+        100% {
+          transform: scale(1);
+        }
+        50% {
+          transform: scale(1.08);
+        }
+      }
+
+      .caret {
+        display: inline-block;
+        width: 2px;
+        height: 1em;
+        background: rgb(var(--c-accent));
+        vertical-align: middle;
+        margin-left: 4px;
+        animation: blink 1s steps(2) infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .avatar-panel {
+        background: linear-gradient(
+          155deg,
+          rgb(var(--c-accent) / 0.18),
+          rgb(var(--c-accent2) / 0.1) 60%,
+          transparent
+        );
+      }
+
+      @media (max-width: 1023px) {
+        .rail {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+        .reveal {
+          opacity: 1;
+          transform: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+
+    <div class="loader" id="loader" aria-hidden="true">
+      <div class="loader-mark">RN</div>
+      <div class="font-mono text-xs text-dim tracking-widest">
+        LOADING PORTFOLIO
+      </div>
+    </div>
+
+    <div class="noise" aria-hidden="true"></div>
+    <div class="spotlight" id="spotlight" aria-hidden="true"></div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+
+    <header class="fixed top-0 inset-x-0 z-50 px-4 sm:px-6 pt-4">
+      <nav
+        class="glass rounded-2xl max-w-6xl mx-auto flex items-center justify-between pl-5 pr-3 py-2.5"
+        aria-label="Primary"
+      >
+        <a href="#home" class="flex items-center gap-3 group">
+          <span
+            class="w-9 h-9 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center font-mono font-semibold text-accent text-sm group-hover:bg-accent/20 transition"
+            >RN</span
+          >
+          <span class="hidden sm:block leading-tight">
+            <span class="block text-sm font-semibold">Rezwan Nabi</span>
+            <span class="block text-[11px] text-dim">Front-end Developer</span>
+          </span>
+        </a>
+
+        <div class="hidden lg:flex items-center gap-0.5" id="navLinks">
+          <a class="nav-link" href="#about">About</a>
+          <a class="nav-link" href="#work">Work</a>
+          <a class="nav-link" href="#skills">Skills</a>
+          <a class="nav-link" href="#now">Now</a>
+          <a class="nav-link" href="#contact">Contact</a>
+        </div>
+
+        <div class="flex items-center gap-2">
+          <button
+            id="cmdBtn"
+            class="hidden md:flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-dim bg-ink/5 hover:bg-ink/10 border border-ink/10 transition"
+            aria-label="Open command palette"
+          >
+            <i data-lucide="search" class="w-3.5 h-3.5"></i>
+            <span>Search</span>
+            <kbd
+              class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-bg border border-ink/10"
+              >⌘K</kbd
+            >
+          </button>
+          <button
+            id="themeBtn"
+            class="w-9 h-9 rounded-lg bg-ink/5 hover:bg-ink/10 border border-ink/10 flex items-center justify-center transition"
+            aria-label="Toggle theme"
+          >
+            <i data-lucide="sun" class="w-4 h-4 hidden light-only"></i>
+            <i data-lucide="moon" class="w-4 h-4 dark-only"></i>
+          </button>
+          <a href="#contact" class="btn btn-primary hidden md:inline-flex !py-2"
+            >Let's Talk <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i
+          ></a>
+          <button
+            id="menuBtn"
+            class="lg:hidden w-9 h-9 rounded-lg bg-ink/5 hover:bg-ink/10 border border-ink/10 flex items-center justify-center"
+            aria-label="Open menu"
+            aria-expanded="false"
+          >
+            <i data-lucide="menu" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </nav>
+
+      <div
+        id="mobileMenu"
+        class="hidden lg:hidden max-w-6xl mx-auto mt-2 glass rounded-2xl p-3 space-y-1"
+      >
+        <a
+          class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
+          href="#about"
+          >About</a
+        >
+        <a
+          class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
+          href="#work"
+          >Work</a
+        >
+        <a
+          class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
+          href="#skills"
+          >Skills</a
+        >
+        <a
+          class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
+          href="#now"
+          >Now</a
+        >
+        <a
+          class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
+          href="#contact"
+          >Contact</a
+        >
+        <a href="#contact" class="btn btn-primary w-full mt-2"
+          >Let's Talk <i data-lucide="arrow-right" class="w-3.5 h-3.5"></i
+        ></a>
+      </div>
+    </header>
+
+    <aside
+      class="rail fixed left-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-5 hidden lg:flex"
+      aria-label="Social links"
+    >
+      <a
+        href="https://github.com/Rezwan-Nabi"
+        target="_blank"
+        rel="noopener"
+        class="text-dim hover:text-accent transition"
+        aria-label="GitHub"
+        ><i data-lucide="github" class="w-[18px] h-[18px]"></i
+      ></a>
+      <a
+        href="https://www.linkedin.com/in/md-rezwan-nabi-857269296"
+        target="_blank"
+        rel="noopener"
+        class="text-dim hover:text-accent transition"
+        aria-label="LinkedIn"
+        ><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i
+      ></a>
+      <a
+        href="mailto:your-email@example.com"
+        class="text-dim hover:text-accent transition"
+        aria-label="Email"
+        ><i data-lucide="mail" class="w-[18px] h-[18px]"></i
+      ></a>
+      <span class="w-px h-24 bg-ink/15"></span>
+    </aside>
+    <aside
+      class="rail fixed right-6 top-1/2 -translate-y-1/2 z-40 flex-col items-center gap-3 hidden lg:flex"
+      id="dots"
+      aria-label="Section navigation"
+    ></aside>
+
+    <main id="main" class="relative z-10">
+      <section
+        id="home"
+        class="relative min-h-screen flex items-center overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-grid opacity-60 [mask-image:radial-gradient(ellipse_70%_60%_at_50%_40%,black,transparent)]"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="absolute -top-32 -left-32 w-[420px] h-[420px] rounded-full blur-3xl bg-accent/15"
+          aria-hidden="true"
+        ></div>
+        <div
+          class="absolute bottom-0 -right-32 w-[420px] h-[420px] rounded-full blur-3xl bg-accent2/10"
+          aria-hidden="true"
+        ></div>
+
+        <div class="max-w-6xl mx-auto px-6 pt-36 pb-24 w-full">
+          <div
+            class="inline-flex items-center gap-2.5 badge badge-accent !py-2 !px-4 mb-8 reveal"
+          >
+            <span class="pulse-dot"></span> Open to collaboration
+          </div>
+
+          <h1 class="reveal" style="transition-delay: 0.08s">
+            <span class="block text-lg sm:text-xl text-muted font-medium mb-3"
+              >Hi, I'm</span
+            >
+            <span
+              class="block text-5xl sm:text-7xl lg:text-[6.5rem] font-extrabold tracking-tighter leading-[1.02]"
+            >
+              Md Rezwan <span class="text-gradient">Nabi</span>
+            </span>
+            <span
+              class="block mt-5 text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight text-muted"
+            >
+              I build
+              <span id="type" class="text-ink">interactive web apps</span
+              ><span class="caret"></span>
+            </span>
+          </h1>
+
+          <p
+            class="mt-8 max-w-2xl text-base sm:text-lg text-muted leading-relaxed reveal"
+            style="transition-delay: 0.16s"
+          >
+            Front-end developer who turns rough ideas into clean, interactive
+            interfaces. Comfortable across
+            <span class="text-ink font-medium"
+              >HTML, CSS, JavaScript, and React</span
+            >
+            — currently going deeper on TypeScript and Next.js.
+          </p>
+
+          <div
+            class="mt-10 flex flex-wrap gap-3 reveal"
+            style="transition-delay: 0.24s"
+          >
+            <a href="#work" class="btn btn-primary magnetic"
+              >See My Work <i data-lucide="arrow-down-right" class="w-4 h-4"></i
+            ></a>
+            <a href="#contact" class="btn btn-ghost magnetic">Get In Touch</a>
+            <a
+              href="https://github.com/Rezwan-Nabi"
+              target="_blank"
+              rel="noopener"
+              class="btn btn-ghost magnetic"
+              ><i data-lucide="github" class="w-4 h-4"></i> GitHub</a
+            >
+          </div>
+
+          <div
+            class="mt-16 pt-8 border-t border-ink/10 grid grid-cols-3 gap-8 reveal"
+            style="transition-delay: 0.32s"
+          >
+            <div>
+              <div
+                class="text-3xl sm:text-4xl font-extrabold tracking-tighter text-gradient counter"
+                data-target="12"
+                data-suffix="+"
+              >
+                0
+              </div>
+              <div class="mt-1 text-xs sm:text-sm text-dim">
+                Core Technologies
+              </div>
+            </div>
+            <div>
+              <div
+                class="text-3xl sm:text-4xl font-extrabold tracking-tighter text-gradient counter"
+                data-target="2"
+                data-suffix=""
+              >
+                0
+              </div>
+              <div class="mt-1 text-xs sm:text-sm text-dim">
+                Deepening Right Now
+              </div>
+            </div>
+            <div>
+              <div
+                class="text-2xl sm:text-3xl font-extrabold tracking-tighter text-gradient"
+              >
+                Open
+              </div>
+              <div class="mt-1 text-xs sm:text-sm text-dim">
+                Availability Status
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-dim"
+          aria-hidden="true"
+        >
+          <span class="text-[10px] font-mono tracking-[.25em]">SCROLL</span>
+          <span
+            class="w-px h-10 bg-gradient-to-b from-accent to-transparent"
+          ></span>
+        </div>
+      </section>
+
+      <section id="about" class="py-28">
+        <div
+          class="max-w-6xl mx-auto px-6 grid lg:grid-cols-12 gap-14 items-center"
+        >
+          <div class="lg:col-span-5 reveal">
+            <div class="relative">
+              <div
+                class="absolute -inset-3 rounded-3xl bg-gradient-to-br from-accent/20 via-transparent to-accent2/20 blur-xl"
+                aria-hidden="true"
+              ></div>
+              <div
+                class="relative card avatar-panel rounded-2xl overflow-hidden aspect-[4/5] flex items-center justify-center"
+              >
+                <div class="absolute inset-0 bg-grid opacity-30"></div>
+                <span
+                  class="relative font-mono text-7xl font-semibold text-accent/70"
+                  >RN</span
+                >
+                <div
+                  class="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-bg/90 to-transparent"
+                ></div>
+                <div
+                  class="absolute bottom-4 left-4 right-4 glass rounded-xl p-3.5 flex items-center gap-3"
+                >
+                  <span
+                    class="w-10 h-10 rounded-lg bg-accent/15 border border-accent/25 flex items-center justify-center"
+                    ><i data-lucide="code-2" class="w-5 h-5 text-accent"></i
+                  ></span>
+                  <span
+                    ><span class="block text-sm font-semibold"
+                      >Front-end Developer</span
+                    ><span class="block text-xs text-dim"
+                      >React &amp; Next.js focus</span
+                    ></span
+                  >
+                </div>
+              </div>
+              <span
+                class="absolute -top-3 -right-2 badge badge-accent !px-3.5 !py-1.5 shadow-lg"
+                ><i data-lucide="sparkles" class="w-3 h-3"></i> Open to
+                Work</span
+              >
+            </div>
+          </div>
+
+          <div class="lg:col-span-7">
+            <span class="badge badge-accent mb-5 reveal">About Me</span>
+            <h2
+              class="text-3xl sm:text-5xl font-extrabold tracking-tighter leading-tight reveal"
+              style="transition-delay: 0.08s"
+            >
+              Turning ideas into
+              <span class="text-gradient">interactive interfaces</span>
+            </h2>
+            <div
+              class="mt-6 space-y-4 text-muted leading-relaxed reveal"
+              style="transition-delay: 0.16s"
+            >
+              <p>
+                I build clean, interactive front ends — the kind of interfaces
+                that feel obvious to use even when there's a lot happening
+                underneath. My day-to-day toolkit is HTML, CSS, JavaScript, and
+                React, and I'm currently deepening my TypeScript and Next.js
+                work.
+              </p>
+              <p>
+                Most of what I make starts as a rough idea and ends as something
+                people can click through and actually enjoy using.
+              </p>
+            </div>
+
+            <div class="mt-10 grid sm:grid-cols-2 gap-4">
+              <div
+                class="card lift rounded-2xl p-5 reveal"
+                style="transition-delay: 0.2s"
+              >
+                <span
+                  class="w-10 h-10 rounded-lg bg-accent/12 bg-accent/10 border border-accent/25 flex items-center justify-center mb-4"
+                  ><i
+                    data-lucide="layout-template"
+                    class="w-5 h-5 text-accent"
+                  ></i
+                ></span>
+                <h3 class="font-semibold text-sm mb-1">
+                  Front-End Development
+                </h3>
+                <p class="text-[13px] text-dim leading-relaxed">
+                  Responsive, accessible UI built with HTML, CSS, JavaScript,
+                  and React.
+                </p>
+              </div>
+              <div
+                class="card lift rounded-2xl p-5 reveal"
+                style="transition-delay: 0.26s"
+              >
+                <span
+                  class="w-10 h-10 rounded-lg bg-accent2/10 border border-accent2/25 flex items-center justify-center mb-4"
+                  ><i data-lucide="layers" class="w-5 h-5 text-accent2"></i
+                ></span>
+                <h3 class="font-semibold text-sm mb-1">React &amp; Next.js</h3>
+                <p class="text-[13px] text-dim leading-relaxed">
+                  Component-driven apps, currently going deeper on the Next.js
+                  app router.
+                </p>
+              </div>
+              <div
+                class="card lift rounded-2xl p-5 reveal"
+                style="transition-delay: 0.32s"
+              >
+                <span
+                  class="w-10 h-10 rounded-lg bg-accent3/10 border border-accent3/25 flex items-center justify-center mb-4"
+                  ><i data-lucide="type" class="w-5 h-5 text-accent3"></i
+                ></span>
+                <h3 class="font-semibold text-sm mb-1">TypeScript</h3>
+                <p class="text-[13px] text-dim leading-relaxed">
+                  Actively learning to write safer, more maintainable front-end
+                  code.
+                </p>
+              </div>
+              <div
+                class="card lift rounded-2xl p-5 reveal"
+                style="transition-delay: 0.38s"
+              >
+                <span
+                  class="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/25 flex items-center justify-center mb-4"
+                  ><i
+                    data-lucide="git-branch"
+                    class="w-5 h-5 text-amber-500"
+                  ></i
+                ></span>
+                <h3 class="font-semibold text-sm mb-1">Open Source</h3>
+                <p class="text-[13px] text-dim leading-relaxed">
+                  Looking to collaborate on web development and open-source
+                  projects.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="work" class="py-28 bg-surface/50 border-y border-ink/5">
+        <div class="max-w-6xl mx-auto px-6">
+          <div
+            class="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-12"
+          >
+            <div class="max-w-2xl">
+              <span class="badge badge-accent mb-5 reveal">Featured Work</span>
+              <h2
+                class="text-3xl sm:text-5xl font-extrabold tracking-tighter reveal"
+                style="transition-delay: 0.08s"
+              >
+                Projects I'm <span class="text-gradient">building</span>
+              </h2>
+              <p class="mt-4 text-muted reveal" style="transition-delay: 0.16s">
+                What I'm currently working on, with room to grow as new projects
+                ship.
+              </p>
+            </div>
+          </div>
+
+          <article
+            class="card lift rounded-3xl p-7 sm:p-10 grid lg:grid-cols-2 gap-10 items-center mb-8 reveal"
+          >
+            <div>
+              <div class="flex flex-wrap gap-2 mb-5">
+                <span class="badge badge-accent"
+                  ><span class="pulse-dot !w-1.5 !h-1.5"></span> In
+                  Progress</span
+                ><span class="badge badge-neutral">Featured</span>
+              </div>
+              <h3
+                class="text-2xl sm:text-3xl font-extrabold tracking-tighter mb-3"
+              >
+                BEE Smart Web App
+              </h3>
+              <p class="text-muted leading-relaxed mb-6">
+                The project I'm currently building. This description is a
+                placeholder — swap it for the real pitch: what it does, who it's
+                for, and what makes it worth a look.
+              </p>
+              <div class="flex flex-wrap gap-2 mb-7">
+                <span class="pill">JavaScript</span
+                ><span class="pill">React</span
+                ><span class="pill">Front-end</span>
+              </div>
+              <div class="flex flex-wrap gap-3">
+                <button class="btn btn-primary open-modal" data-project="bee">
+                  View Details <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                </button>
+                <a
+                  href="https://github.com/Rezwan-Nabi"
+                  target="_blank"
+                  rel="noopener"
+                  class="btn btn-ghost"
+                  ><i data-lucide="github" class="w-4 h-4"></i> Code</a
+                >
+              </div>
+            </div>
+            <div
+              class="relative rounded-2xl border border-ink/10 bg-gradient-to-br from-accent/10 via-transparent to-accent2/10 p-6 sm:p-8 overflow-hidden min-h-[220px] flex items-center justify-center"
+            >
+              <div class="absolute inset-0 bg-grid opacity-40"></div>
+              <div class="relative text-center">
+                <i
+                  data-lucide="app-window"
+                  class="w-12 h-12 text-accent mx-auto mb-3"
+                ></i>
+                <p class="text-sm text-dim font-mono">preview coming soon</p>
+              </div>
+            </div>
+          </article>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5" id="grid">
+            <article
+              class="p-card card lift rounded-2xl overflow-hidden reveal"
+            >
+              <div
+                class="h-36 bg-gradient-to-br from-ink/5 to-transparent flex items-center justify-center relative border-b border-ink/5"
+              >
+                <div class="absolute inset-0 bg-grid opacity-30"></div>
+                <i data-lucide="plus" class="w-10 h-10 text-dim relative"></i>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold tracking-tight text-dim">
+                  Add your next project
+                </h3>
+                <p class="text-[13px] text-dim leading-relaxed mb-4">
+                  Swap this card for a real project once it's ready to show.
+                </p>
+                <a
+                  href="https://github.com/Rezwan-Nabi?tab=repositories"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-xs font-semibold text-accent hover:text-accent2 inline-flex items-center gap-1 transition"
+                  >Browse repositories
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i
+                ></a>
+              </div>
+            </article>
+            <article
+              class="p-card card lift rounded-2xl overflow-hidden reveal"
+              style="transition-delay: 0.06s"
+            >
+              <div
+                class="h-36 bg-gradient-to-br from-ink/5 to-transparent flex items-center justify-center relative border-b border-ink/5"
+              >
+                <div class="absolute inset-0 bg-grid opacity-30"></div>
+                <i data-lucide="plus" class="w-10 h-10 text-dim relative"></i>
+              </div>
+              <div class="p-6">
+                <h3 class="font-bold tracking-tight text-dim">
+                  Add another project
+                </h3>
+                <p class="text-[13px] text-dim leading-relaxed mb-4">
+                  Two or three real projects here will do more than a full grid
+                  of placeholders.
+                </p>
+                <a
+                  href="https://github.com/Rezwan-Nabi?tab=repositories"
+                  target="_blank"
+                  rel="noopener"
+                  class="text-xs font-semibold text-accent hover:text-accent2 inline-flex items-center gap-1 transition"
+                  >Browse repositories
+                  <i data-lucide="arrow-up-right" class="w-3.5 h-3.5"></i
+                ></a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section id="skills" class="py-28">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="max-w-2xl mb-14">
+            <span class="badge badge-accent mb-5 reveal">Expertise</span>
+            <h2
+              class="text-3xl sm:text-5xl font-extrabold tracking-tighter reveal"
+              style="transition-delay: 0.08s"
+            >
+              The tools in my <span class="text-gradient">stack</span>
+            </h2>
+            <p class="mt-4 text-muted reveal" style="transition-delay: 0.16s">
+              What I reach for day to day, and what I'm actively getting
+              stronger at.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div class="card lift rounded-2xl p-6 reveal">
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-accent/10 border border-accent/25 flex items-center justify-center"
+                  ><i data-lucide="code-2" class="w-5 h-5 text-accent"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Core Languages</h3>
+                  <p class="text-[11px] text-dim">Day-to-day confidence</p>
+                </div>
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <span class="font-medium">HTML &amp; CSS</span
+                    ><span class="text-dim font-mono">Strong</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" data-w="90"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <span class="font-medium">JavaScript</span
+                    ><span class="text-dim font-mono">Strong</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" data-w="85"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <span class="font-medium">React</span
+                    ><span class="text-dim font-mono">Comfortable</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" data-w="75"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <span class="font-medium">TypeScript</span
+                    ><span class="text-dim font-mono">Learning</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" data-w="45"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs mb-1.5">
+                    <span class="font-medium">Next.js</span
+                    ><span class="text-dim font-mono">Learning</span>
+                  </div>
+                  <div class="bar">
+                    <div class="bar-fill" data-w="40"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div
+              class="card lift rounded-2xl p-6 reveal"
+              style="transition-delay: 0.06s"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-accent2/10 border border-accent2/25 flex items-center justify-center"
+                  ><i data-lucide="layout" class="w-5 h-5 text-accent2"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Front-End</h3>
+                  <p class="text-[11px] text-dim">UI &amp; interaction</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="pill">HTML5</span><span class="pill">CSS3</span
+                ><span class="pill">JavaScript</span
+                ><span class="pill">React</span
+                ><span class="pill">Tailwind CSS</span
+                ><span class="pill">Responsive Design</span>
+              </div>
+            </div>
+
+            <div
+              class="card lift rounded-2xl p-6 reveal"
+              style="transition-delay: 0.12s"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-accent3/10 border border-accent3/25 flex items-center justify-center"
+                  ><i data-lucide="server" class="w-5 h-5 text-accent3"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Beyond the Front-End</h3>
+                  <p class="text-[11px] text-dim">Full-stack basics</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="pill">Node.js</span><span class="pill">MySQL</span
+                ><span class="pill">MongoDB</span><span class="pill">PHP</span>
+              </div>
+            </div>
+
+            <div class="card lift rounded-2xl p-6 reveal">
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-amber-500/10 border border-amber-500/25 flex items-center justify-center"
+                  ><i data-lucide="wrench" class="w-5 h-5 text-amber-500"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Tools</h3>
+                  <p class="text-[11px] text-dim">Workflow</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="pill">Git / GitHub</span
+                ><span class="pill">VS Code</span><span class="pill">Figma</span
+                ><span class="pill">Linux</span>
+              </div>
+            </div>
+
+            <div
+              class="card lift rounded-2xl p-6 reveal"
+              style="transition-delay: 0.06s"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-pink-500/10 border border-pink-500/25 flex items-center justify-center"
+                  ><i data-lucide="target" class="w-5 h-5 text-pink-500"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Currently Learning</h3>
+                  <p class="text-[11px] text-dim">Actively deepening</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="pill">TypeScript</span
+                ><span class="pill">Next.js</span
+                ><span class="pill">Advanced React patterns</span>
+              </div>
+            </div>
+
+            <div
+              class="card lift rounded-2xl p-6 reveal"
+              style="transition-delay: 0.12s"
+            >
+              <div class="flex items-center gap-3 mb-6">
+                <span
+                  class="w-11 h-11 rounded-xl bg-rose-500/10 border border-rose-500/25 flex items-center justify-center"
+                  ><i data-lucide="handshake" class="w-5 h-5 text-rose-500"></i
+                ></span>
+                <div>
+                  <h3 class="font-bold text-sm">Open To</h3>
+                  <p class="text-[11px] text-dim">Collaboration</p>
+                </div>
+              </div>
+              <div class="flex flex-wrap gap-2">
+                <span class="pill">Web development projects</span
+                ><span class="pill">Open-source contributions</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="now" class="py-28 bg-surface/50 border-y border-ink/5">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="max-w-2xl mb-16">
+            <span class="badge badge-accent mb-5 reveal">Right Now</span>
+            <h2
+              class="text-3xl sm:text-5xl font-extrabold tracking-tighter reveal"
+              style="transition-delay: 0.08s"
+            >
+              What I'm <span class="text-gradient">focused on</span>
+            </h2>
+            <p class="mt-4 text-muted reveal" style="transition-delay: 0.16s">
+              A snapshot of where my attention is going at the moment.
+            </p>
+          </div>
+
+          <div class="timeline max-w-3xl">
+            <div class="t-item reveal">
+              <div class="flex flex-wrap items-center gap-3 mb-2">
+                <span class="badge badge-accent"
+                  ><span class="pulse-dot !w-1.5 !h-1.5"></span> Building</span
+                >
+              </div>
+              <h3 class="text-lg font-bold tracking-tight">
+                BEE Smart Web App
+              </h3>
+              <p class="text-sm text-muted mt-2 leading-relaxed">
+                My current main project — details to be added as it takes shape.
+              </p>
+              <div class="flex flex-wrap gap-2 mt-3">
+                <span class="pill">React</span
+                ><span class="pill">JavaScript</span>
+              </div>
+            </div>
+
+            <div class="t-item reveal" style="transition-delay: 0.08s">
+              <div class="flex flex-wrap items-center gap-3 mb-2">
+                <span class="badge badge-neutral">Learning</span>
+              </div>
+              <h3 class="text-lg font-bold tracking-tight">
+                TypeScript &amp; Next.js
+              </h3>
+              <p class="text-sm text-muted mt-2 leading-relaxed">
+                Going deeper on both, past the basics, to build more capable
+                front ends.
+              </p>
+            </div>
+
+            <div class="t-item reveal" style="transition-delay: 0.12s">
+              <div class="flex flex-wrap items-center gap-3 mb-2">
+                <span class="badge badge-neutral">Open to</span>
+              </div>
+              <h3 class="text-lg font-bold tracking-tight">Collaboration</h3>
+              <p class="text-sm text-muted mt-2 leading-relaxed">
+                Web development and open-source projects — reach out if
+                something fits.
+              </p>
+            </div>
+
+            <div class="t-item !pb-0 reveal" style="transition-delay: 0.16s">
+              <div class="flex flex-wrap items-center gap-3 mb-2">
+                <span class="badge badge-neutral">Ask me about</span>
+              </div>
+              <h3 class="text-lg font-bold tracking-tight">
+                HTML, CSS, JS &amp; React
+              </h3>
+              <p class="text-sm text-muted mt-2 leading-relaxed">
+                Happy to talk front-end development, or anything in that
+                neighborhood.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="contact" class="py-28">
+        <div class="max-w-6xl mx-auto px-6">
+          <div class="max-w-2xl mb-14">
+            <span class="badge badge-accent mb-5 reveal">Contact</span>
+            <h2
+              class="text-3xl sm:text-5xl font-extrabold tracking-tighter reveal"
+              style="transition-delay: 0.08s"
+            >
+              Let's build something <span class="text-gradient">together</span>
+            </h2>
+            <p class="mt-4 text-muted reveal" style="transition-delay: 0.16s">
+              Open to opportunities, collaborations, and interesting
+              conversations.
+            </p>
+          </div>
+
+          <div class="grid lg:grid-cols-5 gap-6">
+            <div class="lg:col-span-2 space-y-5 reveal">
+              <div class="card rounded-2xl p-6 space-y-1">
+                <a
+                  href="mailto:your-email@example.com"
+                  class="group flex items-center gap-4 p-3 -mx-1 rounded-xl hover:bg-ink/5 transition"
+                  ><span
+                    class="w-10 h-10 rounded-lg bg-accent/10 border border-accent/25 flex items-center justify-center flex-shrink-0"
+                    ><i
+                      data-lucide="mail"
+                      class="w-4 h-4 text-accent"
+                    ></i></span
+                  ><span class="flex-1 min-w-0"
+                    ><span class="block text-[11px] text-dim">Email</span
+                    ><span
+                      class="block text-sm font-medium truncate group-hover:text-accent transition"
+                      >your-email@example.com</span
+                    ></span
+                  ><button
+                    class="copy-email w-8 h-8 rounded-lg bg-ink/5 hover:bg-ink/10 border border-ink/10 items-center justify-center hidden group-hover:flex transition"
+                    aria-label="Copy email"
+                  >
+                    <i data-lucide="copy" class="w-3.5 h-3.5"></i></button
+                ></a>
+                <a
+                  href="https://github.com/Rezwan-Nabi"
+                  target="_blank"
+                  rel="noopener"
+                  class="group flex items-center gap-4 p-3 -mx-1 rounded-xl hover:bg-ink/5 transition"
+                  ><span
+                    class="w-10 h-10 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center flex-shrink-0"
+                    ><i data-lucide="github" class="w-4 h-4"></i></span
+                  ><span class="flex-1 min-w-0"
+                    ><span class="block text-[11px] text-dim">GitHub</span
+                    ><span
+                      class="block text-sm font-medium group-hover:text-accent transition"
+                      >Rezwan-Nabi</span
+                    ></span
+                  ><i
+                    data-lucide="arrow-up-right"
+                    class="w-4 h-4 text-dim group-hover:text-accent transition"
+                  ></i
+                ></a>
+                <a
+                  href="https://www.linkedin.com/in/md-rezwan-nabi-857269296"
+                  target="_blank"
+                  rel="noopener"
+                  class="group flex items-center gap-4 p-3 -mx-1 rounded-xl hover:bg-ink/5 transition"
+                  ><span
+                    class="w-10 h-10 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center flex-shrink-0"
+                    ><i data-lucide="linkedin" class="w-4 h-4"></i></span
+                  ><span class="flex-1 min-w-0"
+                    ><span class="block text-[11px] text-dim">LinkedIn</span
+                    ><span
+                      class="block text-sm font-medium group-hover:text-accent transition"
+                      >md-rezwan-nabi</span
+                    ></span
+                  ><i
+                    data-lucide="arrow-up-right"
+                    class="w-4 h-4 text-dim group-hover:text-accent transition"
+                  ></i
+                ></a>
+                <a
+                  href="https://www.facebook.com/share/186ahBjV9p/"
+                  target="_blank"
+                  rel="noopener"
+                  class="group flex items-center gap-4 p-3 -mx-1 rounded-xl hover:bg-ink/5 transition"
+                  ><span
+                    class="w-10 h-10 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center flex-shrink-0"
+                    ><i data-lucide="facebook" class="w-4 h-4"></i></span
+                  ><span class="flex-1 min-w-0"
+                    ><span class="block text-[11px] text-dim">Facebook</span
+                    ><span
+                      class="block text-sm font-medium group-hover:text-accent transition"
+                      >Profile</span
+                    ></span
+                  ><i
+                    data-lucide="arrow-up-right"
+                    class="w-4 h-4 text-dim group-hover:text-accent transition"
+                  ></i
+                ></a>
+              </div>
+              <div
+                class="card rounded-2xl p-6 !border-accent/25 bg-gradient-to-br from-accent/10 to-transparent"
+              >
+                <div class="flex items-center gap-2.5 mb-2.5">
+                  <span class="pulse-dot"></span
+                  ><span class="text-sm font-semibold">Available now</span>
+                </div>
+                <p class="text-[13px] text-muted leading-relaxed">
+                  Open to web development work and open-source collaboration.
+                  Ask me about front-end development any time.
+                </p>
+              </div>
+            </div>
+
+            <form
+              id="contactForm"
+              class="lg:col-span-3 card rounded-2xl p-7 sm:p-8 space-y-5 reveal"
+              style="transition-delay: 0.08s"
+              novalidate
+            >
+              <div class="grid sm:grid-cols-2 gap-5">
+                <div class="form-group">
+                  <input
+                    class="input"
+                    id="fName"
+                    type="text"
+                    placeholder=" "
+                    required
+                    autocomplete="name"
+                  /><label class="form-label" for="fName">Your name</label>
+                  <p class="field-error">Please enter your name.</p>
+                </div>
+                <div class="form-group">
+                  <input
+                    class="input"
+                    id="fEmail"
+                    type="email"
+                    placeholder=" "
+                    required
+                    autocomplete="email"
+                  /><label class="form-label" for="fEmail">Your email</label>
+                  <p class="field-error">Please enter a valid email.</p>
+                </div>
+              </div>
+              <div class="form-group">
+                <input
+                  class="input"
+                  id="fSubject"
+                  type="text"
+                  placeholder=" "
+                  required
+                /><label class="form-label" for="fSubject">Subject</label>
+                <p class="field-error">Please add a subject.</p>
+              </div>
+              <div>
+                <span class="block text-xs font-semibold text-dim mb-2.5"
+                  >WHAT'S THIS ABOUT?</span
+                >
+                <div
+                  class="flex flex-wrap gap-2"
+                  role="radiogroup"
+                  aria-label="Message type"
+                >
+                  <label class="cursor-pointer"
+                    ><input
+                      type="radio"
+                      name="type"
+                      value="Opportunity"
+                      class="sr-only peer"
+                      checked
+                    /><span
+                      class="inline-block px-3.5 py-1.5 rounded-lg text-xs font-medium bg-ink/5 border border-ink/10 text-muted peer-checked:bg-accent/10 peer-checked:border-accent/40 peer-checked:text-accent transition"
+                      >Opportunity</span
+                    ></label
+                  >
+                  <label class="cursor-pointer"
+                    ><input
+                      type="radio"
+                      name="type"
+                      value="Collaboration"
+                      class="sr-only peer"
+                    /><span
+                      class="inline-block px-3.5 py-1.5 rounded-lg text-xs font-medium bg-ink/5 border border-ink/10 text-muted peer-checked:bg-accent/10 peer-checked:border-accent/40 peer-checked:text-accent transition"
+                      >Collaboration</span
+                    ></label
+                  >
+                  <label class="cursor-pointer"
+                    ><input
+                      type="radio"
+                      name="type"
+                      value="Project"
+                      class="sr-only peer"
+                    /><span
+                      class="inline-block px-3.5 py-1.5 rounded-lg text-xs font-medium bg-ink/5 border border-ink/10 text-muted peer-checked:bg-accent/10 peer-checked:border-accent/40 peer-checked:text-accent transition"
+                      >Project</span
+                    ></label
+                  >
+                  <label class="cursor-pointer"
+                    ><input
+                      type="radio"
+                      name="type"
+                      value="Other"
+                      class="sr-only peer"
+                    /><span
+                      class="inline-block px-3.5 py-1.5 rounded-lg text-xs font-medium bg-ink/5 border border-ink/10 text-muted peer-checked:bg-accent/10 peer-checked:border-accent/40 peer-checked:text-accent transition"
+                      >Other</span
+                    ></label
+                  >
+                </div>
+              </div>
+              <div class="form-group">
+                <textarea
+                  class="input resize-none"
+                  id="fMsg"
+                  rows="5"
+                  placeholder=" "
+                  required
+                ></textarea
+                ><label class="form-label" for="fMsg">Your message</label>
+                <p class="field-error">Please write a message.</p>
+              </div>
+              <button
+                type="submit"
+                id="submitBtn"
+                class="btn btn-primary w-full !py-3.5"
+              >
+                <span id="submitLabel">Send Message</span>
+                <i data-lucide="send" class="w-4 h-4" id="submitIcon"></i>
+                <svg
+                  id="submitSpin"
+                  class="hidden w-4 h-4 animate-spin"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    opacity=".25"
+                  />
+                  <path
+                    d="M4 12a8 8 0 018-8"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <p class="text-[11px] text-center text-dim">
+                Submitting opens your email client with everything pre-filled.
+                No data is stored.
+              </p>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-ink/10 py-12 relative z-10">
+      <div
+        class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6"
+      >
+        <div class="flex items-center gap-3">
+          <span
+            class="w-8 h-8 rounded-lg bg-accent/10 border border-accent/25 flex items-center justify-center font-mono font-semibold text-accent text-xs"
+            >RN</span
+          >
+          <p class="text-sm text-muted">
+            © <span id="year"></span> Md Rezwan Nabi. All rights reserved.
+          </p>
+        </div>
+        <p class="font-mono text-[11px] text-dim tracking-wide">
+          FRONT-END DEVELOPER
+        </p>
+        <div class="flex gap-2">
+          <a
+            href="https://github.com/Rezwan-Nabi"
+            target="_blank"
+            rel="noopener"
+            class="w-9 h-9 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition"
+            aria-label="GitHub"
+            ><i data-lucide="github" class="w-4 h-4"></i
+          ></a>
+          <a
+            href="https://www.linkedin.com/in/md-rezwan-nabi-857269296"
+            target="_blank"
+            rel="noopener"
+            class="w-9 h-9 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition"
+            aria-label="LinkedIn"
+            ><i data-lucide="linkedin" class="w-4 h-4"></i
+          ></a>
+          <a
+            href="mailto:your-email@example.com"
+            class="w-9 h-9 rounded-lg bg-ink/5 border border-ink/10 flex items-center justify-center text-muted hover:text-accent hover:border-accent/40 transition"
+            aria-label="Email"
+            ><i data-lucide="mail" class="w-4 h-4"></i
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <div class="modal-backdrop" id="mBack"></div>
+    <div
+      class="modal card"
+      id="modal"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="mTitle"
+    >
+      <button
+        id="mClose"
+        class="sticky top-4 ml-auto mr-4 mt-4 w-9 h-9 rounded-lg bg-ink/5 hover:bg-ink/10 border border-ink/10 flex items-center justify-center transition z-10"
+        aria-label="Close dialog"
+      >
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+      <div id="mBody" class="px-7 sm:px-9 pb-9 -mt-4"></div>
+    </div>
+
+    <div class="modal-backdrop" id="cmdBack" style="z-index: 94"></div>
+    <div
+      class="cmd card"
+      id="cmd"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Command palette"
+    >
+      <div class="flex items-center gap-3 px-4 py-3.5 border-b border-ink/10">
+        <i data-lucide="search" class="w-4 h-4 text-dim"></i>
+        <input
+          id="cmdInput"
+          class="flex-1 bg-transparent outline-none text-sm placeholder:text-dim"
+          placeholder="Type a command or search…"
+          autocomplete="off"
+        />
+        <kbd
+          class="font-mono text-[10px] px-1.5 py-0.5 rounded bg-ink/5 border border-ink/10 text-dim"
+          >ESC</kbd
+        >
+      </div>
+      <div id="cmdList" class="p-2 max-h-80 overflow-y-auto"></div>
+      <div
+        class="px-4 py-2.5 border-t border-ink/10 flex items-center gap-3 text-[10px] font-mono text-dim"
+      >
+        <span>↑↓ navigate</span><span>↵ select</span
+        ><span class="ml-auto">⌘K toggle</span>
+      </div>
+    </div>
+
+    <div class="toast-wrap" id="toasts" aria-live="polite"></div>
+
+    <script>
+      const $ = (s, c = document) => c.querySelector(s),
+        $$ = (s, c = document) => [...c.querySelectorAll(s)];
+      const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+      const finePtr = matchMedia("(pointer: fine)").matches;
+
+      addEventListener("load", () =>
+        setTimeout(() => $("#loader").classList.add("done"), 400),
+      );
+      $("#year").textContent = new Date().getFullYear();
+
+      const root = document.documentElement;
+      if (localStorage.theme === "light") root.classList.add("light");
+      const syncThemeIcons = () => {
+        const light = root.classList.contains("light");
+        $(".light-only").classList.toggle("hidden", !light);
+        $(".dark-only").classList.toggle("hidden", light);
+      };
+      syncThemeIcons();
+      function toggleTheme() {
+        root.classList.toggle("light");
+        localStorage.theme = root.classList.contains("light")
+          ? "light"
+          : "dark";
+        syncThemeIcons();
+      }
+      $("#themeBtn").addEventListener("click", toggleTheme);
+
+      if (finePtr && !reduced) {
+        const sp = $("#spotlight");
+        addEventListener(
+          "mousemove",
+          (e) => {
+            sp.style.left = e.clientX + "px";
+            sp.style.top = e.clientY + "px";
+          },
+          { passive: true },
+        );
+      } else {
+        $("#spotlight").style.display = "none";
+      }
+
+      addEventListener(
+        "scroll",
+        () => {
+          const h = document.documentElement;
+          $("#progress").style.width =
+            (h.scrollTop / (h.scrollHeight - h.clientHeight)) * 100 + "%";
+        },
+        { passive: true },
+      );
+
+      const io = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.classList.add("in");
+              io.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.12, rootMargin: "0px 0px -40px 0px" },
+      );
+      $$(".reveal").forEach((el) => io.observe(el));
+
+      const cio = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (!e.isIntersecting) return;
+            cio.unobserve(e.target);
+            const el = e.target,
+              t = +el.dataset.target,
+              suf = el.dataset.suffix || "";
+            if (reduced) {
+              el.textContent = t + suf;
+              return;
+            }
+            const t0 = performance.now();
+            (function tick(n) {
+              const p = Math.min((n - t0) / 1400, 1),
+                ease = 1 - Math.pow(1 - p, 3);
+              el.textContent = Math.round(ease * t) + suf;
+              if (p < 1) requestAnimationFrame(tick);
+            })(t0);
+          }),
+        { threshold: 0.6 },
+      );
+      $$(".counter").forEach((el) => cio.observe(el));
+
+      const bio = new IntersectionObserver(
+        (es) =>
+          es.forEach((e) => {
+            if (e.isIntersecting) {
+              e.target.style.width = e.target.dataset.w + "%";
+              bio.unobserve(e.target);
+            }
+          }),
+        { threshold: 0.4 },
+      );
+      $$(".bar-fill").forEach((el) => bio.observe(el));
+
+      const phrases = [
+        "interactive web apps",
+        "clean React interfaces",
+        "things people enjoy using",
+        "my TypeScript skills",
+      ];
+      const typeEl = $("#type");
+      if (reduced) {
+        typeEl.textContent = phrases[0];
+      } else {
+        let pi = 0,
+          ci = phrases[0].length,
+          del = false;
+        setTimeout(function loop() {
+          const cur = phrases[pi];
+          ci += del ? -1 : 1;
+          typeEl.textContent = cur.slice(0, ci);
+          let d = del ? 40 : 85;
+          if (!del && ci === cur.length) {
+            d = 1900;
+            del = true;
+          } else if (del && ci === 0) {
+            del = false;
+            pi = (pi + 1) % phrases.length;
+            d = 350;
+          }
+          setTimeout(loop, d);
+        }, 2000);
+      }
+
+      const sections = ["home", "about", "work", "skills", "now", "contact"];
+      const dotsWrap = $("#dots");
+      sections.forEach((id) => {
+        const b = document.createElement("button");
+        b.className = "dot";
+        b.dataset.s = id;
+        b.title = id[0].toUpperCase() + id.slice(1);
+        b.setAttribute("aria-label", "Go to " + id);
+        b.addEventListener("click", () =>
+          document
+            .getElementById(id)
+            .scrollIntoView({ behavior: reduced ? "auto" : "smooth" }),
+        );
+        dotsWrap.appendChild(b);
+      });
+      function onScroll() {
+        const y = scrollY + innerHeight * 0.35;
+        let cur = "home";
+        sections.forEach((id) => {
+          const el = document.getElementById(id);
+          if (el && el.offsetTop <= y) cur = id;
+        });
+        $$("#dots .dot").forEach((d) =>
+          d.classList.toggle("active", d.dataset.s === cur),
+        );
+        $$("#navLinks .nav-link").forEach((a) =>
+          a.classList.toggle("active", a.getAttribute("href") === "#" + cur),
+        );
+      }
+      addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+      const menu = $("#mobileMenu");
+      $("#menuBtn").addEventListener("click", () => {
+        const open = menu.classList.toggle("hidden");
+        $("#menuBtn").setAttribute("aria-expanded", String(!open));
+      });
+      $$("#mobileMenu a").forEach((a) =>
+        a.addEventListener("click", () => menu.classList.add("hidden")),
+      );
+
+      if (finePtr && !reduced)
+        $$(".magnetic").forEach((b) => {
+          b.addEventListener("mousemove", (e) => {
+            const r = b.getBoundingClientRect();
+            b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.12}px,${(e.clientY - r.top - r.height / 2) * 0.18}px)`;
+          });
+          b.addEventListener("mouseleave", () => (b.style.transform = ""));
+        });
+
+      function toast(msg, type = "success") {
+        const t = document.createElement("div");
+        t.className = "toast";
+        t.innerHTML = `<i data-lucide="${type === "success" ? "check-circle-2" : type === "error" ? "alert-circle" : "info"}" class="w-4.5 h-4.5 w-5 h-5 ${type === "success" ? "text-accent" : type === "error" ? "text-red-500" : "text-accent2"}"></i><span class="text-[13px] flex-1">${msg}</span>`;
+        $("#toasts").appendChild(t);
+        lucide.createIcons();
+        setTimeout(() => {
+          t.classList.add("out");
+          setTimeout(() => t.remove(), 300);
+        }, 3800);
+      }
+
+      function copyEmail() {
+        navigator.clipboard
+          ?.writeText("your-email@example.com")
+          .then(() => toast("Email copied to clipboard"))
+          .catch(() => toast("Email: your-email@example.com", "info"));
+      }
+      $$(".copy-email").forEach((b) =>
+        b.addEventListener("click", (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          copyEmail();
+        }),
+      );
+
+      const PROJECTS = {
+        bee: {
+          t: "BEE Smart Web App",
+          b: "In Progress",
+          d: "This is the placeholder case-study text. Replace it with the real story: the problem BEE Smart solves, who it is for, and why it exists.",
+          h: [
+            "Add a real highlight about the problem it solves",
+            "Add a real highlight about the stack or architecture",
+            "Add a real highlight about a challenge you solved",
+          ],
+          s: ["JavaScript", "React", "Front-end"],
+        },
+      };
+      const modal = $("#modal"),
+        mBack = $("#mBack");
+      function openModal(id) {
+        const p = PROJECTS[id];
+        if (!p) return;
+        $("#mBody").innerHTML =
+          `<span class="badge badge-accent mb-4">${p.b}</span><h2 id="mTitle" class="text-2xl sm:text-3xl font-extrabold tracking-tighter mb-4">${p.t}</h2><p class="text-sm sm:text-[15px] text-muted leading-relaxed mb-7">${p.d}</p><h3 class="text-xs font-bold font-mono tracking-widest text-dim mb-3">HIGHLIGHTS</h3><ul class="space-y-2.5 mb-7">${p.h.map((x) => `<li class="flex items-start gap-2.5 text-sm text-muted"><i data-lucide="check" class="w-4 h-4 text-accent mt-0.5 flex-shrink-0"></i>${x}</li>`).join("")}</ul><h3 class="text-xs font-bold font-mono tracking-widest text-dim mb-3">STACK</h3><div class="flex flex-wrap gap-2 mb-8">${p.s.map((x) => `<span class="pill">${x}</span>`).join("")}</div><div class="flex gap-3 pt-5 border-t border-ink/10"><button class="btn btn-ghost" onclick="closeModal()">Close</button><a href="https://github.com/Rezwan-Nabi" target="_blank" rel="noopener" class="btn btn-primary">View Code <i data-lucide="arrow-up-right" class="w-4 h-4"></i></a></div>`;
+        modal.classList.add("open");
+        mBack.classList.add("open");
+        document.body.style.overflow = "hidden";
+        lucide.createIcons();
+        $("#mClose").focus();
+      }
+      function closeModal() {
+        modal.classList.remove("open");
+        mBack.classList.remove("open");
+        document.body.style.overflow = "";
+      }
+      window.closeModal = closeModal;
+      $$(".open-modal").forEach((b) =>
+        b.addEventListener("click", () => openModal(b.dataset.project)),
+      );
+      $("#mClose").addEventListener("click", closeModal);
+      mBack.addEventListener("click", closeModal);
+
+      const cmd = $("#cmd"),
+        cmdBack = $("#cmdBack"),
+        cmdInput = $("#cmdInput"),
+        cmdList = $("#cmdList");
+      const go = (id) =>
+        document
+          .getElementById(id)
+          .scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
+      const ITEMS = [
+        { g: "Navigate", i: "home", l: "Go to Home", r: () => go("home") },
+        { g: "Navigate", i: "user", l: "Go to About", r: () => go("about") },
+        {
+          g: "Navigate",
+          i: "folder-git-2",
+          l: "Go to Work",
+          r: () => go("work"),
+        },
+        {
+          g: "Navigate",
+          i: "code-2",
+          l: "Go to Skills",
+          r: () => go("skills"),
+        },
+        { g: "Navigate", i: "clock", l: "Go to Now", r: () => go("now") },
+        {
+          g: "Navigate",
+          i: "mail",
+          l: "Go to Contact",
+          r: () => go("contact"),
+        },
+        { g: "Actions", i: "copy", l: "Copy email address", r: copyEmail },
+        {
+          g: "Actions",
+          i: "github",
+          l: "Open GitHub profile",
+          r: () => open("https://github.com/Rezwan-Nabi", "_blank"),
+        },
+        {
+          g: "Actions",
+          i: "linkedin",
+          l: "Open LinkedIn profile",
+          r: () =>
+            open(
+              "https://www.linkedin.com/in/md-rezwan-nabi-857269296",
+              "_blank",
+            ),
+        },
+        {
+          g: "Actions",
+          i: "sun-moon",
+          l: "Toggle light / dark theme",
+          r: toggleTheme,
+        },
+      ];
+      let sel = 0,
+        filtered = ITEMS;
+      function renderCmd(q = "") {
+        filtered = ITEMS.filter((x) =>
+          x.l.toLowerCase().includes(q.toLowerCase()),
+        );
+        sel = 0;
+        cmdList.innerHTML = filtered.length
+          ? filtered
+              .map(
+                (x, i) =>
+                  `<button class="cmd-item ${i === 0 ? "sel" : ""}" data-i="${i}"><i data-lucide="${x.i}" class="w-4 h-4 text-dim"></i><span class="flex-1">${x.l}</span><span class="font-mono text-[10px] text-dim">${x.g === "Navigate" ? "↵" : "⏎"}</span></button>`,
+              )
+              .join("")
+          : `<div class="px-3 py-8 text-center text-sm text-dim">No results for "${q}"</div>`;
+        lucide.createIcons();
+        $$(".cmd-item", cmdList).forEach((el) =>
+          el.addEventListener("click", () => {
+            filtered[+el.dataset.i].r();
+            closeCmd();
+          }),
+        );
+      }
+      function openCmd() {
+        cmd.classList.add("open");
+        cmdBack.classList.add("open");
+        cmdInput.value = "";
+        renderCmd();
+        setTimeout(() => cmdInput.focus(), 80);
+      }
+      function closeCmd() {
+        cmd.classList.remove("open");
+        cmdBack.classList.remove("open");
+      }
+      $("#cmdBtn").addEventListener("click", openCmd);
+      cmdBack.addEventListener("click", closeCmd);
+      cmdInput.addEventListener("input", (e) => renderCmd(e.target.value));
+      cmdInput.addEventListener("keydown", (e) => {
+        const items = $$(".cmd-item", cmdList);
+        if (e.key === "ArrowDown") {
+          e.preventDefault();
+          sel = Math.min(sel + 1, items.length - 1);
+        } else if (e.key === "ArrowUp") {
+          e.preventDefault();
+          sel = Math.max(sel - 1, 0);
+        } else if (e.key === "Enter") {
+          e.preventDefault();
+          if (filtered[sel]) {
+            filtered[sel].r();
+            closeCmd();
+          }
+          return;
+        } else return;
+        items.forEach((el, i) => el.classList.toggle("sel", i === sel));
+        items[sel]?.scrollIntoView({ block: "nearest" });
+      });
+      addEventListener("keydown", (e) => {
+        if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+          e.preventDefault();
+          cmd.classList.contains("open") ? closeCmd() : openCmd();
+        }
+        if (e.key === "Escape") {
+          closeCmd();
+          closeModal();
+        }
+      });
+
+      $("#contactForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        let ok = true;
+        [
+          ["#fName", (v) => v.trim().length > 1],
+          ["#fEmail", (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)],
+          ["#fSubject", (v) => v.trim().length > 2],
+          ["#fMsg", (v) => v.trim().length > 5],
+        ].forEach(([id, test]) => {
+          const el = $(id),
+            g = el.closest(".form-group"),
+            valid = test(el.value);
+          g.classList.toggle("invalid", !valid);
+          if (!valid) ok = false;
+        });
+        if (!ok) {
+          toast("Please fix the highlighted fields", "error");
+          return;
+        }
+        const btn = $("#submitBtn");
+        btn.disabled = true;
+        $("#submitLabel").textContent = "Preparing…";
+        $("#submitIcon").classList.add("hidden");
+        $("#submitSpin").classList.remove("hidden");
+        setTimeout(() => {
+          const type = new FormData(e.target).get("type");
+          const body = encodeURIComponent(
+            `Hi Rezwan,\n\n${$("#fMsg").value}\n\n— ${$("#fName").value} (${$("#fEmail").value})\nType: ${type}`,
+          );
+          location.href = `mailto:your-email@example.com?subject=${encodeURIComponent($("#fSubject").value)}&body=${body}`;
+          btn.disabled = false;
+          $("#submitLabel").textContent = "Send Message";
+          $("#submitIcon").classList.remove("hidden");
+          $("#submitSpin").classList.add("hidden");
+          toast("Message ready — opening your email client");
+          e.target.reset();
+        }, 1100);
+      });
+      $$(".input").forEach((i) =>
+        i.addEventListener("input", () =>
+          i.closest(".form-group").classList.remove("invalid"),
+        ),
+      );
+
+      lucide.createIcons();
+    </script>
+  </body>
+</html>
