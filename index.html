@@ -685,6 +685,53 @@
           display: none;
         }
       }
+      /* Education & milestones timeline */
+      .education-timeline {
+        position: relative;
+        margin-left: 18px;
+        padding-left: 44px;
+      }
+      .education-timeline::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 12px;
+        bottom: 12px;
+        width: 1px;
+        background: linear-gradient(
+          180deg,
+          rgb(var(--c-accent) / 0.65),
+          rgb(var(--c-accent2) / 0.45)
+        );
+      }
+      .education-item {
+        position: relative;
+        padding-bottom: 48px;
+      }
+      .education-item:last-child { padding-bottom: 0; }
+      .education-item::before {
+        content: "";
+        position: absolute;
+        left: -54px;
+        top: 6px;
+        width: 18px;
+        height: 18px;
+        border: 3px solid rgb(var(--c-accent2));
+        border-radius: 50%;
+        background: rgb(var(--c-bg));
+        box-shadow: 0 0 0 5px rgb(var(--c-accent2) / 0.12);
+        z-index: 1;
+      }
+      .education-content { min-width: 0; }
+      @media (max-width: 640px) {
+        .education-timeline {
+          margin-left: 8px;
+          padding-left: 30px;
+        }
+        .education-item::before { left: -40px; }
+        .education-item { padding-bottom: 36px; }
+      }
+
       @media (prefers-reduced-motion: reduce) {
         *,
         *::before,
@@ -735,7 +782,7 @@
           <a class="nav-link" href="#about">About</a>
           <a class="nav-link" href="#work">Work</a>
           <a class="nav-link" href="#skills">Skills</a>
-          <a class="nav-link" href="#now">Now</a>
+          <a class="nav-link" href="#education">Education</a>
           <a class="nav-link" href="#contact">Contact</a>
         </div>
 
@@ -795,8 +842,8 @@
         >
         <a
           class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
-          href="#now"
-          >Now</a
+          href="#education"
+          >Education</a
         >
         <a
           class="block px-4 py-2.5 rounded-lg text-sm text-muted hover:text-ink hover:bg-ink/5 transition"
@@ -1420,76 +1467,74 @@
         </div>
       </section>
 
-      <section id="now" class="py-28 bg-surface/50 border-y border-ink/5">
+      <section id="education" class="py-28 bg-surface/50 border-y border-ink/5">
         <div class="max-w-6xl mx-auto px-6">
-          <div class="max-w-2xl mb-16">
-            <span class="badge badge-accent mb-5 reveal">Right Now</span>
+          <div class="max-w-4xl mb-16">
             <h2
               class="text-3xl sm:text-5xl font-extrabold tracking-tighter reveal"
               style="transition-delay: 0.08s"
             >
-              What I'm <span class="text-gradient">focused on</span>
+              Education &amp; <span class="text-gradient">milestones</span>
             </h2>
             <p class="mt-4 text-muted reveal" style="transition-delay: 0.16s">
-              A snapshot of where my attention is going at the moment.
+              The academic path and experiences that shaped my engineering mindset.
             </p>
           </div>
 
-          <div class="timeline max-w-3xl">
-            <div class="t-item reveal">
-              <div class="flex flex-wrap items-center gap-3 mb-2">
-                <span class="badge badge-accent"
-                  ><span class="pulse-dot !w-1.5 !h-1.5"></span> Building</span
-                >
+          <div class="education-timeline max-w-4xl">
+            <!-- Bachelor's degree -->
+            <article class="education-item reveal">
+              <div class="education-content">
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                  <span class="badge badge-accent">Completed</span>
+                  <span class="text-xs font-mono text-dim">2023 – 2026</span>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight">
+                  B.Sc. in Computer Science &amp; Engineering
+                </h3>
+                <p class="text-accent font-semibold mt-1">
+                  American International University–Bangladesh (AIUB)
+                </p>
+                <p class="text-sm sm:text-base text-muted mt-3 leading-relaxed">
+                  Completed a degree in Computer Science and Engineering, with interests in software engineering,
+                  web development, artificial intelligence, and research.
+                </p>
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <span class="pill">AI &amp; ML</span>
+                  <span class="pill">Software Engineering</span>
+                  <span class="pill">Research</span>
+                </div>
               </div>
-              <h3 class="text-lg font-bold tracking-tight">
-                BEE Smart Web App
-              </h3>
-              <p class="text-sm text-muted mt-2 leading-relaxed">
-                My current main project — details to be added as it takes shape.
-              </p>
-              <div class="flex flex-wrap gap-2 mt-3">
-                <span class="pill">React</span
-                ><span class="pill">JavaScript</span>
-              </div>
-            </div>
+            </article>
 
-            <div class="t-item reveal" style="transition-delay: 0.08s">
-              <div class="flex flex-wrap items-center gap-3 mb-2">
-                <span class="badge badge-neutral">Learning</span>
+            <!-- Previous education: replace placeholders with your actual details -->
+            <article class="education-item reveal" style="transition-delay: 0.16s">
+              <div class="education-content">
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                  <span class="badge badge-neutral">Completed</span>
+                  <span class="text-xs font-mono text-dim">2018 – 2020</span>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight">Higher Secondary Certificate (HSC)</h3>
+                <p class="text-accent font-semibold mt-1">Add your college name</p>
+                <p class="text-sm sm:text-base text-muted mt-3 leading-relaxed">
+                  Add a short description of your higher secondary education here.
+                </p>
               </div>
-              <h3 class="text-lg font-bold tracking-tight">
-                TypeScript &amp; Next.js
-              </h3>
-              <p class="text-sm text-muted mt-2 leading-relaxed">
-                Going deeper on both, past the basics, to build more capable
-                front ends.
-              </p>
-            </div>
+            </article>
 
-            <div class="t-item reveal" style="transition-delay: 0.12s">
-              <div class="flex flex-wrap items-center gap-3 mb-2">
-                <span class="badge badge-neutral">Open to</span>
+            <article class="education-item reveal" style="transition-delay: 0.24s">
+              <div class="education-content">
+                <div class="flex flex-wrap items-center gap-3 mb-4">
+                  <span class="badge badge-neutral">Completed</span>
+                  <span class="text-xs font-mono text-dim">Add your years</span>
+                </div>
+                <h3 class="text-xl font-bold tracking-tight">Secondary School Certificate (SSC)</h3>
+                <p class="text-accent font-semibold mt-1">Add your school name</p>
+                <p class="text-sm sm:text-base text-muted mt-3 leading-relaxed">
+                  Add a short description of your secondary education here.
+                </p>
               </div>
-              <h3 class="text-lg font-bold tracking-tight">Collaboration</h3>
-              <p class="text-sm text-muted mt-2 leading-relaxed">
-                Web development and open-source projects — reach out if
-                something fits.
-              </p>
-            </div>
-
-            <div class="t-item !pb-0 reveal" style="transition-delay: 0.16s">
-              <div class="flex flex-wrap items-center gap-3 mb-2">
-                <span class="badge badge-neutral">Ask me about</span>
-              </div>
-              <h3 class="text-lg font-bold tracking-tight">
-                HTML, CSS, JS &amp; React
-              </h3>
-              <p class="text-sm text-muted mt-2 leading-relaxed">
-                Happy to talk front-end development, or anything in that
-                neighborhood.
-              </p>
-            </div>
+            </article>
           </div>
         </div>
       </section>
